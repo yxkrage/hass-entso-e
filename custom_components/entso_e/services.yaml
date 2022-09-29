@@ -1,0 +1,20 @@
+# Service ID
+get_data:
+  name: Get Price Data
+  description: Retrieves price data from Entso-e API for specified area.
+  fields:
+    areas:
+      name: Price Areas
+      description: List of price areas to get data for.
+      required: true
+      example: "['SE1', 'SE2', 'SE3']"
+      # The default field value
+      # default: "high"
+      # Selector (https://www.home-assistant.io/docs/blueprint/selectors/) to control the input UI for this field
+      # selector:
+      #   select:
+      #     options:
+      #       - "off"
+      #       - "low"
+      #       - "medium"
+      #       - "high"
