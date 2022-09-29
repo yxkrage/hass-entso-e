@@ -90,7 +90,7 @@ These can be used to plot the prices. One way to do this is to use the [ApexChar
 
 ![Day Ahead price graph](docs/dayahead_price_graph.png)
 
-The follow code produces the above graph. Add it to your `ui_lovelace.yaml`.
+The follow code produces the above graph. Add it to your `ui-lovelace.yaml`.
 
 ```yaml
 entities:
