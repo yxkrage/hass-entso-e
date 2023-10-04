@@ -1,16 +1,20 @@
 # Electricity Price integration for Home Assistant (ENTSO-E / Nordpool)
+
 The [ENTSO-E](www.entsoe.eu) electricity price integration retrieves the **day ahead electricity prices** (spot price) from the *European Network of Transmission System Operators for Electricity* into **Home Assistant**. ENTSO-E is the association for the cooperation of the European transmission system operators (TSOs).
 
 The data in ENTSO-E is the **same as from *Nordpool*** but unlike Nordpool, ENTSO-E provides an open API!
 
 This integration gives you the hourly electricity prices for today and tomorrow (day ahead) as they are published by Nordpool via ENTSO-E. It is possible to...
- - Configure sensors that show the current electricity spot price.
- - Add markups to reflect the retail price that that your electricty reseller is charging you i.e. price incl. VAT and reseller's margin.
- - Convert the price to any currency using an sensor sensor containing the exchange rate or use a fixed rate.
- - Show the price for either MWh, kWh or Wh.
+
+- Configure sensors that show the current electricity spot price.
+- Add markups to reflect the retail price that that your electricty reseller is charging you i.e. price incl. VAT and reseller's margin.
+- Convert the price to any currency using an sensor sensor containing the exchange rate or use a fixed rate.
+- Show the price for either MWh, kWh or Wh.
 
 ## Getting started
+
 ### Obtaining a ENTSO-E API token
+
 To call the ENTSO-E API a token is needed. These are handed out free of charge but you have to register on the ENTSO-E site.
 
 1. Goto the [ENTSO-E Transparency Platform](https://transparency.entsoe.eu).
@@ -21,10 +25,13 @@ To call the ENTSO-E API a token is needed. These are handed out free of charge b
 6. Click `Generate a new token` and copy the result.
 
 ### Installing the ENTSO-E integration
+
 Copy the `entso_e` folder into your `config/custom-components` folder in you Home Assistant.
 
 ## Configuration
+
 ### Enable the integration
+
 Enable the integration by adding the following to your `configuration.yaml`.
 
 ```yaml
@@ -80,8 +87,23 @@ sensor:
 | `amount`  (optional, if omitted *percent* must exist) | An amount that should be added to the electricity price **after** the currency conversion and the unit of measure conversion have taken place. |
 | `percent`  (optional, if omitted *amount* must exist) | An percentage that should be added to the electricity price **after** the currency conversion and the unit of measure conversion have taken place. |
 
+## Callable services
+
+There is one service that can be called to get the day ahead prices from Entso-E. The service name is `Entso-e Electricity Price Integration: Get Price Data`.
+
+![Call Service: Get Price Data](docs/call_service.png)
+
+Example:
+
+```yaml
+service: entso_e.get_data
+data: {
+  areas: ['SE3']
+}
+```
 
 ## Visualizing the Day Ahead prices
+
 In the extra attributes of the sensor the future Day Ahead prices for each hour are kept.
 
 ![Sensor Details](docs/sensor_details.png)
