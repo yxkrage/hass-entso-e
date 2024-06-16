@@ -6,7 +6,11 @@
 	],
 	"settings": {
 		"cSpell.words": [
-			"ENTSO"
+			"codeowners",
+			"ENTSO",
+			"entsoe",
+			"timespec",
+			"yxkrage"
 		]
 	}
 }

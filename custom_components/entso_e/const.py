@@ -11,7 +11,7 @@ CONF_CONVERT_TO_UOM = "convert_uom_to"
 CONF_CONVERT_CURRENCY = 'convert_currency'
 CONF_CONVERT_TO_CURRENCY = 'to_currency'
 CONF_CONVERT_EXCHANGE_RATE = 'exchange_rate'
-
+CONF_EVENT_SETUP_DONE = 'event_setup_done'
 
 CONF_MARKUPS = "markups"
 CONF_AMOUNT = "amount"
@@ -19,6 +19,8 @@ CONF_PERCENT = "percent"
 
 EVENT_PRICE_DATA_UPDATED = f"{DOMAIN}_event"
 EVENT_TYPE_DATA_UPDATED = "data_updated"
+
+SETUP_TIMEOUT = 30
 
 # Convert currency code to symbol
 CONST_CURRENCY_CODE_TO_SYMBOL = {
@@ -37,7 +39,7 @@ CONST_ENERGY_UOM_FIX_CASE = {
     'WH': 'Wh'
 }
 
-CONST_VALID_ENERGY_UOMS = [uom for uom in CONST_ENERGY_UOM_FIX_CASE.keys()]
+CONST_VALID_ENERGY_UOMS = [uom for uom in CONST_ENERGY_UOM_FIX_CASE]
 
 # Convert between energy UoMs
 CONST_ENERGY_UOM_CONV = {

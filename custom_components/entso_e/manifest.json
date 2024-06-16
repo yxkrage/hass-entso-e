@@ -1,10 +1,10 @@
 {
-    "domain": "entso_e",
-    "name": "Entso-e Electricity Price Integration",
-    "documentation": "https://github.com/yxkrage/entsoe-api",
-    "dependencies": [],
-    "codeowners": ["@yxkrage"],
-    "requirements": [],
-    "iot_class": "cloud_polling",
-    "version": "0.0.6"
+  "domain": "entso_e",
+  "name": "Entso-e Electricity Price Integration",
+  "documentation": "https://github.com/yxkrage/entsoe-api",
+  "dependencies": [],
+  "codeowners": ["@yxkrage"],
+  "requirements": [],
+  "iot_class": "cloud_polling",
+  "version": "0.1.0"
 }
