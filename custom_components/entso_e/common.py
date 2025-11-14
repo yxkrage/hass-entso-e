@@ -60,6 +60,7 @@ def flatten_response(resp: dict) -> dict:
     for ts in resp.get('timeSeries'):
         tmp_cur = ts.get('currency')
         tmp_uom = ts.get('uom')
+        resolution = ts.get('resolution')  # PT60M or PT15M; how often data points are given
 
         # Check that currency is the same in all TimeSeries
         if cur is None:
@@ -76,9 +77,16 @@ def flatten_response(resp: dict) -> dict:
         # Loop thru all periods and add to return structure
         dt = to_datetime(ts.get('periodStart'))
         for pt in ts.get('points'):
-            hr = int(pt.get('position')) - 1
             pr = pt.get('price')
-            d = dt + timedelta(hours = hr)
+
+            # Handle resolution
+            if resolution == 'PT60M':
+                hr = int(pt.get('position')) - 1
+                d = dt + timedelta(hours = hr)
+            elif resolution == 'PT15M':
+                mn = (int(pt.get('position')) - 1) * 15
+                d = dt + timedelta(minutes = mn)
+            else: _LOGGER.warning(f"Unknown resolution '{resolution}' in Entso-e response")
             ret[d.astimezone(tz).isoformat()] = pr
 
     return {'currency': cur,
@@ -87,9 +95,16 @@ def flatten_response(resp: dict) -> dict:
 
 
 def get_price_by_datetime(flat_resp: dict, dt: datetime) -> str:
-    d = dt.replace(minute=0, second=0, microsecond=0)
-    iso = d.astimezone().isoformat()
-    return flat_resp.get(iso)
+    # Find the time slot that matches the given datetime
+    latest = None
+    for k in flat_resp:
+        d = datetime.fromisoformat(k)
+        dt_aware = dt.astimezone(d.tzinfo) if dt.tzinfo else dt.replace(tzinfo=d.tzinfo)
+        if d < dt_aware:
+            latest = k
+        else:
+            break
+    return flat_resp.get(latest)
 
 
 def conv_currency(currency: str) -> str:
