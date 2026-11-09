@@ -1,10 +1,11 @@
-"""This is the new JSON API module. It works with Entso-E's new JSON API. It is 
-recommended to use this module instead of entsoe.py. that does not seem to work anymore."""
+"""Experimental parser for ENTSO-E's JSON API.
+
+The current integration still uses the separate ``entsoe`` module.
+"""
 
 
 import requests
 from datetime import date, datetime, timedelta, timezone
-from mock_response import MockResponse
 
 
 CONST_REQUEST_URL = "https://web-api.tp.entsoe.eu/api"
@@ -39,13 +40,13 @@ def build_request_url(token: str,
            f"periodEnd={period_end}"
 
 
-def parse_response(response:dict|requests.Response|MockResponse) -> dict:
-    if isinstance(response, requests.Response) or isinstance(response, MockResponse):
+def parse_response(response: dict | requests.Response) -> dict:
+    if isinstance(response, requests.Response):
         resp_json = response.json()
     elif isinstance(response, dict):
         resp_json = response
     else:
-        pass  ## Should not happen
+        raise TypeError(f"Unsupported response type: {type(response).__name__}")
 
     # Parse response by status code
     status_code = resp_json.get('http_status_code', 0)
